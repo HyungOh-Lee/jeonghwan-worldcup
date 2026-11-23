@@ -157,7 +157,7 @@
 <script>
 (() => {
   const $ = id => document.getElementById(id);
-  const SIZES = [64, 32, 16, 8].filter(n => n <= CANDIDATES.length);
+  const SIZES = [64, 32].filter(n => n <= CANDIDATES.length);
   let size = SIZES[0];
   let S = null;          // 진행 상태
   let history = [];      // 되돌리기용
