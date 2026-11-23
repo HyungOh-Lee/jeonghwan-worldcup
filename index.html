@@ -157,6 +157,8 @@
 <script>
 (() => {
   const $ = id => document.getElementById(id);
+  // 매 판 무조건 나오는 후보
+  const MUST = ['홍석천 정환', '사이타마 정환', '트럼프 정환', '흰수염 정환'];
   const SIZES = [64, 32].filter(n => n <= CANDIDATES.length);
   let size = SIZES[0];
   let S = null;          // 진행 상태
@@ -189,7 +191,9 @@
   function esc(s) { return String(s).replace(/[&<>"]/g, ch => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[ch])); }
 
   function start() {
-    S = { cur: shuffle(CANDIDATES).slice(0, size), next: [], i: 0, out: {} };
+    const must = CANDIDATES.filter(c => MUST.includes(c.name));
+    const rest = shuffle(CANDIDATES.filter(c => !MUST.includes(c.name))).slice(0, size - must.length);
+    S = { cur: shuffle(must.concat(rest)), next: [], i: 0, out: {} };
     history = [];
     show('game');
     renderMatch();
